@@ -1,5 +1,5 @@
 #!/bin/bash
-#prova script con ciclo if
+#prova script con ciclo if ci siamo riuscitiiiiiii
 
 for i in 1 2 3 4 5 
 do
