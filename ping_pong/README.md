@@ -24,6 +24,7 @@ Nel secondo script invece ho aggiunto un'ulteriore funzione contenente un curl c
 che ho usato successivamente all'interno del ciclo while per far si che il container situato su node2 partisse solo quando quello su node1 fosse spento.
 
 #VERIFICA FUNZIONAMENTO 
+
 Alla fine di cio ho avviato lo script su ciascuna vm e utilizzato il comando sudo watch docker ps per verificare se effettivamente node2 comunicasse con node1 e aspettasse lo stop del container presente su essa
 e che quindi, il container migrasse da un nodo all'altro riproducendo il gioco del ping pong. 
 
