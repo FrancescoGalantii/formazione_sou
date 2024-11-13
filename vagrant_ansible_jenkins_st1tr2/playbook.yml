@@ -1,0 +1,93 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: upgrade all packages on servers
+      dnf:
+        name: '*'
+        state: latest
+
+    - name: Set up repository docker
+      shell: |
+        dnf install -y yum-utils
+        yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        
+    - name: Install docker 
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Install python requests
+      ansible.builtin.yum:
+        name: python3-requests
+        state: present
+
+    - name: Add the current user to the docker group
+      user:
+        name: rocky
+        groups: docker
+        append: yes
+
+    - name: Start and enable docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: create a network with custom IPAM config
+      docker_network:
+        name: dock_network
+        ipam_config:
+          - subnet: 192.168.10.0/24
+            gateway: 192.168.10.1
+
+    - name: install jenkins
+      docker_image:
+        name: "jenkins/jenkins"
+        source: pull
+
+    - name: create a volume for the master
+      docker_volume:
+        name: jenkins_home
+        state: present
+
+    - name: create a container from the jenkins image
+      docker_container:
+        name: "jenkins-server"
+        image: jenkins/jenkins:lts
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:8080"
+          - "50000:50000"
+        networks:
+          - name: dock_network
+            ipv4_address: 192.168.10.100
+        volumes:
+          - "jenkins_home:/var/jenkins_home" 
+
+    - name: pull dell'image for the jenkins slave
+      docker_image:
+        name: jenkins/agent 
+        source: pull
+
+    - name: create a volume for the agent
+      docker_volume:
+        name: jenkinslave_home
+        state: present
+
+    - name: connect the agent with the master 
+      docker_container:
+        name: jenkinslave
+        image: jenkins/agent:latest
+        restart_policy: always
+        env:
+          JENKINS_URL: "http://jenkins-server:8080"
+          JENKINS_AGENT_NAME: "jenkinslave"
+          JENKINS_SECRET: "jenkins_secret"
+        volumes:
+          - "jenkinslave_home:/home/jenkins/agent"
+        networks:
+          - name: dock_network
