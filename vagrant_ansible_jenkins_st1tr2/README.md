@@ -10,18 +10,20 @@ Successivamente installato python3 poichè nell'output iniziale era presente un 
 Ho poi creato una docker network propedeutica all'assegnazione statica degli ip impostando subnet /24 e gateway.
 
 Dopo aver installato jenkins sono andato a creare un volume docker e il jenkins master al quale:
-   --> ho passato l'image jenkins/jenkins,
+
+      - ho passato l'image jenkins/jenkins,
    
-   --> ho impostato la porte per il master 8080 per l'interfaccia web e 50000 per connettersi agli agent
+      - ho impostato la porte per il master 8080 per l'interfaccia web e 50000 per connettersi agli agent
    
-   --> ho definito la rete assegnadnogli un nome e associando un ipv4 al master.
+      - ho definito la rete assegnadnogli un nome e associando un ipv4 al master.
    
 Successivamente ho pullato l'image per il jenkins slave e creato un volume anche per esso.
 
 Infine ho connesso l'agent con il master utilizzando le seguenti variabili d'ambiente:
-   --> JENKINS_URL --> dove ho riportato l'url del master
+
+      - JENKINS_URL --> dove ho riportato l'url del master
    
-   --> JENKINS_AGENT_NAME --> riportando il nome dell'agent
+      - JENKINS_AGENT_NAME --> riportando il nome dell'agent
    
-   --> JENKINS_SECRET --> dove invece ho settato la chiave segreta generata da jenkins stesso al momento della creazione del nodo e che mi consente di far comunicare il master con l'agent
+      - JENKINS_SECRET --> dove invece ho settato la chiave segreta generata da jenkins stesso al momento della creazione del nodo e che mi consente di far comunicare il master con l'agent
     
