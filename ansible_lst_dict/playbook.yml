@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: creating groups
+      ansible.builtin.group:
+        name: "{{ item.name }}"
+      loop:
+        - name: "devops"
+        - name: "java_developer"
+        - name: "atlassian"
+
+    - name: creating users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        home: "{{ item.home }}"
+        shell: "{{ item.shell }}"
+      loop:
+        - name: "francesco"
+          groups: "devops"
+          shell: "/bin/bash"
+          home: "/home/francesco"
+        - name: "marco"
+          groups: "java_developer"
+          shell: "/bin/sh"
+          home: "/home/marcolino"
+        - name: "lino"
+          groups: "atlassian"
+          shell: "/bin/zsh"
+          home: "/home/lino"
+ 

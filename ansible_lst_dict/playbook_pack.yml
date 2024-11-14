@@ -1,0 +1,29 @@
+
+- hosts: all
+  become: true
+  vars:
+    packages:
+      install:
+        - name: ntpdate
+        - name: containerd
+      uninstall:
+        - name: nano
+          state: absent
+
+  tasks:
+    - name: update 
+      package:
+        update_cache: true
+
+    - name: Installation
+      ansible.builtin.package:
+        name: "{{ item.name }}"
+        state: present
+      loop: "{{ packages.install }}"
+
+    - name: uninstall
+      ansible.builtin.package:
+        name: "{{ item.name }}"
+        state: absent
+      loop: "{{ packages.uninstall }}"
+
