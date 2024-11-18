@@ -70,7 +70,7 @@
 
     - name: pull dell'image for the jenkins slave
       docker_image:
-        name: jenkins/agent 
+        name: jenkins/inbound-agent 
         source: pull
 
     - name: create a volume for the agent
@@ -81,13 +81,15 @@
     - name: connect the agent with the master 
       docker_container:
         name: jenkinslave
-        image: jenkins/agent:latest
+        image: jenkins/inbound-agent:latest
         restart_policy: always
         env:
           JENKINS_URL: "http://jenkins-server:8080"
           JENKINS_AGENT_NAME: "jenkinslave"
+          JENKINS_AGENT_WORKDIR: "/home/jenkins/agent"
           JENKINS_SECRET: "jenkins_secret"
         volumes:
           - "jenkinslave_home:/home/jenkins/agent"
         networks:
           - name: dock_network
+            ipv4_address: 192.168.10.99
