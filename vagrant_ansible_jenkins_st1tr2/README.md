@@ -26,4 +26,12 @@ Infine ho connesso l'agent con il master utilizzando le seguenti variabili d'amb
       - JENKINS_AGENT_NAME --> riportando il nome dell'agent
    
       - JENKINS_SECRET --> dove invece ho settato la chiave segreta generata da jenkins stesso al momento della creazione del nodo e che mi consente di far comunicare il master con l'agent
-    
+Per testare il funzionamento lanciare all'interno della vm il comando
+
+    docker exec -it jenkinslave /bin/bash
+ed al suo interno eseguire 
+
+    curl -sO http://localhost:8080/jnlpJars/agent.jar
+    java -jar agent.jar -url http://localhost:8080/ -secret_token -name jenkinslave -webSocket -workDir "/home/jenkins/agent"
+A questo punto salvo imprevisti se si ritorna sulla dashboard di jenkins e si clicca sull' agent apparirà 
+--> agent is connected
