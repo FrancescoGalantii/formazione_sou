@@ -3,14 +3,16 @@ replicaCount: 1
 image:
   repository: francescogalanti/flask-app-example  
   tag: latest       
-  pullPolicy: always        
+  pullPolicy: always 
+
+namespace: formazione-sou
 
 service:
   type: ClusterIP                      
   name: flask-app-service                   
   port: 80                          
   targetPort: 8000             
-  protocol: TCP                     
+  protocol: TCP
 
 ingress:
   enabled: true                   
