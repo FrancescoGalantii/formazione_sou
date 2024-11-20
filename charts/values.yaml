@@ -1,0 +1,51 @@
+replicaCount: 1
+
+image:
+  repository: francescogalanti/flask-app-example  
+  tag: latest       
+  pullPolicy: always        
+
+service:
+  type: ClusterIP                      
+  name: flask-app-service                   
+  port: 80                          
+  targetPort: 8000             
+  protocol: TCP                     
+
+ingress:
+  enabled: true                   
+  hosts:
+    - flask-app.local               
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  tls:
+    - secretName: flask-app-tls     
+      hosts:
+        - flask-app.local
+
+resources:
+  limits:                             
+    cpu: "500m"                        
+    memory: "256Mi"                    
+  requests:                            
+    cpu: "250m"                
+    memory: "128Mi" 
+
+livenessProbe:
+  httpsGet:
+    path: /
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
