@@ -98,20 +98,44 @@
           - name: dock_network
             ipv4_address: 192.168.10.99
 
-    - name: download kubectl 
+    - name: Download kubectl binary in Jenkins container
       community.docker.docker_container_exec:
         container: jenkins-server
-        user: jenkins
-        command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/"
+        user: root
+        command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl"
 
-     - name: Download helm
-       community.docker.docker_container_exec:
+    - name: Make kubectl executable
+      community.docker.docker_container_exec:
+        container: jenkins-server
+        user: root
+        command: "chmod +x kubectl"
+
+    - name: Move kubectl to /usr/local/bin
+      community.docker.docker_container_exec:
+        container: jenkins-server
+        user: root
+        command: "mv kubectl /usr/local/bin/"
+
+    - name: Download helm
+      community.docker.docker_container_exec:
         container: jenkins-server
         user: jenkins
         command: "curl -fsSL -o /var/jenkins_home/helm.tar.gz https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz"
 
-     - name: Extract helm
-       community.docker.docker_container_exec:
+    - name: Extract helm
+      community.docker.docker_container_exec:
         container: jenkins-server
         user: jenkins
         command: "tar -xzf /var/jenkins_home/helm.tar.gz -C /var/jenkins_home --strip-components=1 linux-amd64/helm"
+
+    - name: Extract helm
+  5   community.docker.docker_container_exec:
+  4     container: jenkins-server
+  3     user: jenkins
+  2     command: "cp /var/jenkins_home/helm /usr/bin" 
+
+    - name: Extract helm
+  5   community.docker.docker_container_exec:
+  4     container: jenkins-server
+  3     user: jenkins
+        command: "chmod +x /usr/bin/helm"
