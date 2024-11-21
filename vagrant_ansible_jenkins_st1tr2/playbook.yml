@@ -67,6 +67,8 @@
             ipv4_address: 192.168.10.100
         volumes:
           - "jenkins_home:/var/jenkins_home" 
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /usr/bin/docker:/usr/bin/docker
 
     - name: pull dell'image for the jenkins slave
       docker_image:
@@ -90,6 +92,8 @@
           JENKINS_SECRET: "jenkins_secret"
         volumes:
           - "jenkinslave_home:/home/jenkins/agent"
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /usr/bin/docker:/usr/bin/docker
         networks:
           - name: dock_network
             ipv4_address: 192.168.10.99
