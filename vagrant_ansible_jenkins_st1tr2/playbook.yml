@@ -97,3 +97,25 @@
         networks:
           - name: dock_network
             ipv4_address: 192.168.10.99
+
+    - name: download kubectl 
+      community.docker.docker_container_exec:
+        container: my_container
+        command: |
+          curl -LO "https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl" && \
+          chmod +x kubectl && \
+          mv kubectl /usr/local/bin/
+
+     - name: Download helm
+      community.docker.docker_container_exec:
+        container: my_container
+        command: curl -LO "https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz"
+
+     - name: Extract helm
+      community.docker.docker_container_exec:
+        container: my_container
+        command: |
+          tar -xzvf helm-v3.11.0-linux-amd64.tar.gz && \
+          mv linux-amd64/helm /usr/local/bin/helm && \
+          chmod +x /usr/local/bin/helm && \
+          rm -rf helm-v3.11.0-linux-amd64.tar.gz linux-amd64
