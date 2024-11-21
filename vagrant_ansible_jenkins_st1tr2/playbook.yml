@@ -129,13 +129,13 @@
         command: "tar -xzf /var/jenkins_home/helm.tar.gz -C /var/jenkins_home --strip-components=1 linux-amd64/helm"
 
     - name: Extract helm
-  5   community.docker.docker_container_exec:
-  4     container: jenkins-server
-  3     user: jenkins
-  2     command: "cp /var/jenkins_home/helm /usr/bin" 
+      community.docker.docker_container_exec:
+        container: jenkins-server
+        user: jenkins
+        command: "cp /var/jenkins_home/helm /usr/bin" 
 
     - name: Extract helm
-  5   community.docker.docker_container_exec:
-  4     container: jenkins-server
-  3     user: jenkins
+      community.docker.docker_container_exec:
+        container: jenkins-server
+        user: jenkins
         command: "chmod +x /usr/bin/helm"
