@@ -101,17 +101,17 @@
     - name: download kubectl 
       community.docker.docker_container_exec:
         container: jenkins-server
-        command: |
-          curl -LO "https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl" && \
-          chmod +x kubectl && \
-          mv kubectl /usr/local/bin/
+        user: jenkins
+        command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/"
 
      - name: Download helm
        community.docker.docker_container_exec:
         container: jenkins-server
-        command: "curl -LO https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz"
+        user: jenkins
+        command: "curl -fsSL -o /var/jenkins_home/helm.tar.gz https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz"
 
      - name: Extract helm
        community.docker.docker_container_exec:
         container: jenkins-server
-        command: "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh"
+        user: jenkins
+        command: "tar -xzf /var/jenkins_home/helm.tar.gz -C /var/jenkins_home --strip-components=1 linux-amd64/helm"
