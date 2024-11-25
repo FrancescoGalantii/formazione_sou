@@ -40,11 +40,22 @@ A questo punto salvo imprevisti se si ritorna sulla dashboard di jenkins e si cl
 # modifiche aggiuntive al playbook
 Di seguito ai punti precedenti ho modificato il playbook aggiungendo l'installazione sui container di kubectl ed helm 
 
-- installazione kubectl utilizzando il modulo community.docker.docker_container_exec
-  community.docker.docker_container_exec:
-        container: jenkins-server
-        user: root
-        command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl"
+- installazione kubectl utilizzando il modulo community.docker.docker_container_exec e i seguenti comandi:
+
+          command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl"
+
+          command: "chmod +x kubectl"
+
+          command: "mv kubectl /usr/local/bin/"
+- installazione helm sempre utilizzando community.docker.docker_container_exec e i seguenti comandi:
+
+          command: "curl -fsSL -o /var/jenkins_home/helm.tar.gz https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz"
+
+          command: "tar -xzf /var/jenkins_home/helm.tar.gz -C /var/jenkins_home --strip-components=1 linux-amd64/helm"
+
+          command: "cp /var/jenkins_home/helm /usr/bin"
+
+          command: "chmod +x /usr/bin/helm"
 
 
   
