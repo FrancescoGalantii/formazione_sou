@@ -34,4 +34,18 @@ ed al suo interno eseguire
     curl -sO http://localhost:8080/jnlpJars/agent.jar
     java -jar agent.jar -url http://localhost:8080/ -secret_token -name jenkinslave -webSocket -workDir "/home/jenkins/agent"
 A questo punto salvo imprevisti se si ritorna sulla dashboard di jenkins e si clicca sull' agent apparirà 
---> agent is connected
+
+-agent is connected
+
+# modifiche aggiuntive al playbook
+Di seguito ai punti precedenti ho modificato il playbook aggiungendo l'installazione sui container di kubectl ed helm 
+
+- installazione kubectl utilizzando il modulo community.docker.docker_container_exec
+  community.docker.docker_container_exec:
+        container: jenkins-server
+        user: root
+        command: "curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl"
+
+
+  
+  
