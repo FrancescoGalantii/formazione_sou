@@ -119,23 +119,23 @@
     - name: Download helm
       community.docker.docker_container_exec:
         container: jenkins-server
-        user: jenkins
+        user: root
         command: "curl -fsSL -o /var/jenkins_home/helm.tar.gz https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz"
 
     - name: Extract helm
       community.docker.docker_container_exec:
         container: jenkins-server
-        user: jenkins
+        user: root
         command: "tar -xzf /var/jenkins_home/helm.tar.gz -C /var/jenkins_home --strip-components=1 linux-amd64/helm"
 
-    - name: Extract helm
+    - name: copy helm in usr/bin
       community.docker.docker_container_exec:
         container: jenkins-server
-        user: jenkins
+        user: root
         command: "cp /var/jenkins_home/helm /usr/bin" 
 
-    - name: Extract helm
+    - name: cambio permessi /usr/bin/helm
       community.docker.docker_container_exec:
         container: jenkins-server
-        user: jenkins
+        user: root
         command: "chmod +x /usr/bin/helm"
