@@ -7,7 +7,7 @@ serviceAccount:
 image:
   repository: francescogalanti/flask-app-example  
   tag: latest       
-  pullPolicy: always 
+  pullPolicy: IfNotPresent
 
 namespace: formazione-sou
 
