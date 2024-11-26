@@ -37,21 +37,3 @@ resources:
   requests:                            
     cpu: "250m"                
     memory: "128Mi" 
-
-livenessProbe:
-  httpsGet:
-    path: /
-    port: 8000
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  timeoutSeconds: 2
-  failureThreshold: 3
-
-readinessProbe:
-  httpGet:
-    path: /
-    port: 8000
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  timeoutSeconds: 2
-  failureThreshold: 3
