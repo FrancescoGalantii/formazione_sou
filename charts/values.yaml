@@ -1,5 +1,9 @@
 replicaCount: 1
 
+serviceAccount:
+  create: true
+  name: cluster-reader
+
 image:
   repository: francescogalanti/flask-app-example  
   tag: latest       
@@ -13,10 +17,6 @@ service:
   port: 80                          
   targetPort: 8000             
   protocol: TCP
-
-  serviceAccount:
-  create: true
-  name: cluster-reader
 
 ingress:
   enabled: true                   
