@@ -13,9 +13,9 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ .Values.serviceAccount.name }}
+      serviceAccountName: cluster-reader
       containers:
-        - name: {{ .Release.Name }}
+        - name: flask-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
