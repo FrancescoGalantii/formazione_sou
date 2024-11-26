@@ -30,11 +30,19 @@ e la cartella templates contenente:
 
 # spiegazione values.yaml
 All'interno del values.yaml ho:
-1)definito l'immagine(flask-app-example) 
+
+1)creato il service account cluster-reader
+
+    serviceAccount:
+      create: true
+      name: cluster-reader
+2)definito l'immagine(flask-app-example) 
 
     image:
       repository: francescogalanti/flask-app-example 
+3)definito il namespace formazione-sou
 
+    namespace: formazione-sou
 2)definito il servizio 
 
     service:
@@ -49,13 +57,16 @@ All'interno del values.yaml ho:
     ingress:
       enabled: true
 
-4)impostato i limiti di risorse
+4)impostato i limits e requests
 
     resources:
       limits:                             
         cpu: "500m"                        
-        memory: "256Mi"
-5)ho aggiunto poi 
+        memory: "256Mi"                    
+      requests:                            
+        cpu: "250m"                
+        memory: "128Mi" 
+5)per poi aggiungere il livenessProbe
 
     livenessProbe:
       httpsGet:
@@ -66,7 +77,7 @@ All'interno del values.yaml ho:
       timeoutSeconds: 2
       failureThreshold: 3
 per verificare se il container è attivo, sta funzionando correttamente
-e 
+e il readinessProbe
 
     readinessProbe:
       httpGet:
