@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "charts.selectorLabels" . | nindent 4 }}
+    {{- include "flask-app.selectorLabels" . | nindent 4 }}
