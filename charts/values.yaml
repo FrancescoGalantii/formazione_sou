@@ -20,8 +20,7 @@ service:
 
 ingress:
   enabled: true                   
-  hosts:
-    - flask-app.local               
+  hosts: "flask-app.local"              
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
