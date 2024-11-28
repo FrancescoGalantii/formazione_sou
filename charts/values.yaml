@@ -12,7 +12,7 @@ image:
 namespace: formazione-sou
 
 service:
-  type: nodePort                     
+  type: NodePort                     
   name: flask-app-service                   
   port: 80                                       
   protocol: TCP
