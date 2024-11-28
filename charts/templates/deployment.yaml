@@ -19,7 +19,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.Port }}
+            - containerPort: {{ .Values.service.targetPort }}
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessProbe.httpGet.path }}
@@ -39,5 +39,4 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
-
 
