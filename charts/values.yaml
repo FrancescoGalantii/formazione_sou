@@ -21,14 +21,14 @@ service:
 ingress:
   enabled: true                   
   hosts: 
-    - "flask-app.local"              
+    - "formazionesou.local"              
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   tls:
     - secretName: flask-app-tls     
       hosts:
-        - flask-app.local
+        - formazionesou.local
 
 resources:
   limits:                             
