@@ -11,4 +11,3 @@ spec:
       protocol: {{ .Values.service.protocol }}
   selector:
     app: {{ .Release.Name }}
-
