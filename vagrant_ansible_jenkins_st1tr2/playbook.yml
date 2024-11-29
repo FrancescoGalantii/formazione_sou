@@ -89,7 +89,7 @@
           JENKINS_URL: "http://jenkins-server:8080"
           JENKINS_AGENT_NAME: "jenkinslave"
           JENKINS_AGENT_WORKDIR: "/home/jenkins/agent"
-          JENKINS_SECRET: "jenkins_secret"
+          JENKINS_SECRET: "90d2186c3a34032dc62f4cc12eac71a0aee119f8f07d144c26429b02ee35ddf7"
         volumes:
           - "jenkinslave_home:/home/jenkins/agent"
           - "/var/run/docker.sock:/var/run/docker.sock"
