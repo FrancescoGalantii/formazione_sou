@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: kira002/flask-app-example
-  tag: "develop"
+  repository: francescogalanti/flask-app-example
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 serviceAccount:
