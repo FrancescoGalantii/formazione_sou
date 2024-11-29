@@ -12,10 +12,10 @@ image:
 namespace: formazione-sou
 
 service:
-  type: ClusterIP                      
+  type: NodePort                      
   name: flask-app-service                   
-  port: 80                          
-  targetPort: 8000             
+  port: 8000
+  NodePort: 30000
   protocol: TCP
 
 ingress:
