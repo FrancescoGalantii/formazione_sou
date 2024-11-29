@@ -15,6 +15,7 @@ serviceAccount:
     roleNamespace: ""
 
 service:
+  name: flask-app-example-service
   type: NodePort
   port: 8000
   targetPort: 8000
