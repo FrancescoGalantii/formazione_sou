@@ -12,7 +12,7 @@ image:
 namespace: formazione-sou
 
 service:
-  type: ClusterIP                      
+  type: LoadBalancer                     
   name: flask-app-service                   
   port: 80                          
   targetPort: 8000             
