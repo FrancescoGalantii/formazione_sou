@@ -1,23 +1,24 @@
 replicaCount: 1
 
+image:
+  repository: kira002/flask-app-example
+  tag: "develop"
+  pullPolicy: IfNotPresent
+
 serviceAccount:
   create: true
   name: cluster-reader
-
-image:
-  repository: francescogalanti/flask-app-example  
-  tag: latest       
-  pullPolicy: IfNotPresent
-
-namespace: formazione-sou
+  annotations: {}
+  clusterRoleBinding:
+    create: true
+    roleName: cluster-reader
+    roleNamespace: ""
 
 service:
-  type: NodePort                      
-  name: flask-app-service                   
+  type: NodePort
   port: 8000
   targetPort: 8000
-  NodePort: 30000
-  protocol: TCP
+  nodePort: 30000
 
 ingress:
   enabled: true                   
@@ -25,19 +26,18 @@ ingress:
     - "formazionesou.local"              
   annotations:
     kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
   tls:
     - secretName: flask-app-tls     
       hosts:
-        - formazionesou.local
-
+        - formazionesou.local  
+    
 resources:
-  limits:                             
-    cpu: "500m"                        
-    memory: "256Mi"                    
-  requests:                            
-    cpu: "250m"                
-    memory: "128Mi" 
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+  requests:
+    cpu: "250m"
+    memory: "128Mi"
 
 livenessProbe:
   httpGet:
@@ -50,5 +50,5 @@ readinessProbe:
   httpGet:
     path: /
     port: 8000
-  initialDelaySeconds: 5
-  periodSeconds: 10
+  initialDelaySeconds: 3
+  periodSeconds: 5
