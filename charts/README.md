@@ -1,3 +1,7 @@
+1. **ciao
+
+
+
 # obiettivo
 creare un helm chart che effettui il deploy dell'immagine flask-app-example creata tramite pipeline jenkins. 
 
@@ -46,13 +50,12 @@ All'interno del values.yaml ho:
 2)definito il servizio 
 
     service:
-      type: ClusterIP                      
-      name: flask-app-service                   
-      port: 80                          
-      targetPort: 8000             
-      protocol: TCP 
+      type: NodePort
+      port: 8000
+      targetPort: 8000
+      nodePort: 30000 
 
-3)abilitato l'accesso tramite ingress
+3)abilitato l'accesso all'applicazione flask-app tramite ingress 
 
     ingress:
       enabled: true
@@ -74,8 +77,6 @@ All'interno del values.yaml ho:
         port: 8000
       initialDelaySeconds: 5
       periodSeconds: 10
-      timeoutSeconds: 2
-      failureThreshold: 3
 per verificare se il container è attivo, sta funzionando correttamente
 e il readinessProbe
 
@@ -85,7 +86,10 @@ e il readinessProbe
         port: 8000
       initialDelaySeconds: 5
       periodSeconds: 10
-      timeoutSeconds: 2
-      failureThreshold: 3
 per verificare se il container è pronto a ricevere traffico.
+Successivamente alla creazione del values.yaml sono andato a modificare gli altri yaml presenti nella cratella templates.
+
+
+
+
 
