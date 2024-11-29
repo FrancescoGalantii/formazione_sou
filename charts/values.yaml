@@ -12,11 +12,10 @@ image:
 namespace: formazione-sou
 
 service:
-  type: NodePort                    
-  name: flask-app-service                   
-  port: 80                          
-  targetPort: 8000             
-  protocol: TCP
+  type: NodePort
+  port: 8000
+  targetPort: 8000
+  nodePort: 30000
 
 ingress:
   enabled: true                   
@@ -24,11 +23,10 @@ ingress:
     - "formazionesou.local"              
   annotations:
     kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
   tls:
     - secretName: flask-app-tls     
       hosts:
-        - formazionesou.local
+        - formazionesou.local 
 
 resources:
   limits:                             
