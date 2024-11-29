@@ -12,6 +12,7 @@ serviceAccount:
   clusterRoleBinding:
     create: true
     roleName: cluster-reader
+    roleNamespace: ""
 
 service:
   type: NodePort
