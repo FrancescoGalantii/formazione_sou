@@ -9,7 +9,14 @@ Successivamente installato python3 poichè nell'output iniziale era presente un 
  
 Ho poi creato una docker network propedeutica all'assegnazione statica degli ip impostando subnet /24 e gateway.
 
-Dopo aver installato jenkins sono andato a creare un volume docker e il jenkins master al quale:
+    name: create a network with custom IPAM config
+    docker_network:
+      name: dock_network
+      ipam_config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
+
+e dopo aver installato jenkins sono andato a creare un volume docker e il jenkins master al quale:
 
       - ho passato l'image jenkins/jenkins,
    
