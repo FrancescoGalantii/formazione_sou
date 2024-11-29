@@ -7,11 +7,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: flask-app-example
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: flask-app-example
     spec:
       serviceAccountName: cluster-reader
       containers:
