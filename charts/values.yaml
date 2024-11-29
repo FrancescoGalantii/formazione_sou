@@ -15,6 +15,7 @@ service:
   type: NodePort                      
   name: flask-app-service                   
   port: 8000
+  targetPort: 8000
   NodePort: 30000
   protocol: TCP
 
