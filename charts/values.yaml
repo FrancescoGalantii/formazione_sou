@@ -50,5 +50,5 @@ readinessProbe:
   httpGet:
     path: /
     port: 8000
-  initialDelaySeconds: 3
-  periodSeconds: 5
+  initialDelaySeconds: 5
+  periodSeconds: 10
