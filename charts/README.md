@@ -11,23 +11,11 @@ diversi file e cartelle
       values.yaml
       charts/
       templates/
-      templates/tests/test-connection.yaml
-
-delle quali ho tenuto
-
---> chart.yaml
-
---> values.yaml
-
-e la cartella templates contenente:
-
---> deployment.yaml
-
---> ingress.yaml
-
---> service.yaml
-
---> serviceaccount.yaml
+      templates/
+        deployment.yaml
+        ingress.yaml
+        service.yaml
+        serviceaccount.yaml
 
 # spiegazione values.yaml
 All'interno del values.yaml ho:
@@ -66,7 +54,7 @@ All'interno del values.yaml ho:
       requests:                            
         cpu: "250m"                
         memory: "128Mi" 
-5)per poi aggiungere il livenessProbe
+5)impostato il livenessProbe
 
     livenessProbe:
       httpsGet:
@@ -87,6 +75,25 @@ per verificare se il container è pronto a ricevere traffico.
 
 Successivamente alla creazione del values.yaml sono andato a modificare gli altri yaml presenti nella cratella templates.
 
+# una volta fatto ciò come riesco a vedere quanto esposto dalla mia applicazione via http://formazionesou.local?
+
+Per ottenere quanto esposto all'applicazione flask creata in precedenza, chiamando via http://formazionesou.local ho dovuto fare le seguenti operazioni:
+
+- modificare il file /etc/hosts per creare un dominio DNS locale che associa l'ip al name formasionesou.local.
+
+      vi /etc/hosts
+      192.168.64.2    formazionesou.local
+in questo modo l'applicazione può essere chiamata anche digitando sul browser http://formazionesou.local
+
+!!importante ricordarsi di:
+
+- assegnare al servizio il tipo NodePort e non clusterIP poichè quest'ultimo limita tutto internamente al cluster
+- e settare un ingress.
+
+dopo aver fatto ciò lanciare su cluster il seguente comando:
+
+    minikube addons enable ingress
+recarsi sul browser e inserire l'url associato all'interno del file /etc/host all'ip nel mio caso formazionesou.local
 
 
 
