@@ -1,9 +1,6 @@
-1. **ciao
-
-
-
 # obiettivo
-creare un helm chart che effettui il deploy dell'immagine flask-app-example creata tramite pipeline jenkins. 
+creare un helm chart che effettui il deploy dell'immagine flask-app-example creata tramite pipeline jenkins, per poi effettuare il deploy dell'applicazione flask tramite pipeline presente all'interno della repo https://github.com/FrancescoGalantii/formazione_sou_k8s.git
+l'helm install sull'istanza k8s locale su specifico namespace.
 
 # spiegazione helm chart
 prima di tutto ho creato la subdir lanciando all'interno di formazione_sou helm create charts, in questo modo helm crea in automatico
@@ -87,6 +84,7 @@ e il readinessProbe
       initialDelaySeconds: 5
       periodSeconds: 10
 per verificare se il container è pronto a ricevere traffico.
+
 Successivamente alla creazione del values.yaml sono andato a modificare gli altri yaml presenti nella cratella templates.
 
 
