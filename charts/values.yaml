@@ -19,15 +19,17 @@ service:
   nodePort: 30000
 
 ingress:
-  enabled: true                   
-  hosts: 
-    - "formazionesou.local"              
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  tls:
-    - secretName: flask-app-tls     
-      hosts:
-        - formazionesou.local 
+  enabled: true   
+  className: "nginx"   
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: "/" 
+  hosts:
+    - host: formazionesou.local   
+      paths:
+        - path: /
+          pathType: Prefix        
+        - path: /api
+          pathType: Prefix
 
 resources:
   limits:                             
