@@ -20,19 +20,19 @@ diversi file e cartelle
 ### `spiegazione values.yaml`
 All'interno del values.yaml ho:
 
-1)creato il `service account cluster-reader`
+1)`creato il service account cluster-reader`
 
     serviceAccount:
       create: true
       name: cluster-reader
-2)definito l'immagine(flask-app-example) 
+2)`definito l'immagine(flask-app-example)` 
 
     image:
       repository: francescogalanti/flask-app-example 
-3)definito il namespace formazione-sou
+3)`definito il namespace formazione-sou`
 
     namespace: formazione-sou
-2)definito il servizio 
+2)`definito il servizio` 
 
     service:
       type: NodePort
@@ -40,12 +40,12 @@ All'interno del values.yaml ho:
       targetPort: 8000
       nodePort: 30000 
 
-3)abilitato l'accesso all'applicazione flask-app tramite ingress 
+3)`abilitato l'accesso all'applicazione flask-app tramite ingress`
 
     ingress:
       enabled: true
 
-4)impostato i limits e requests
+4)`impostato i limits e requests`
 
     resources:
       limits:                             
@@ -54,7 +54,7 @@ All'interno del values.yaml ho:
       requests:                            
         cpu: "250m"                
         memory: "128Mi" 
-5)impostato il livenessProbe
+5)`impostato il livenessProbe`
 
     livenessProbe:
       httpsGet:
@@ -75,9 +75,9 @@ per verificare se il container è pronto a ricevere traffico.
 
 Successivamente alla creazione del values.yaml sono andato a modificare gli altri yaml presenti nella cratella templates.
 
-# una volta fatto ciò come riesco a vedere quanto esposto dalla mia applicazione via http://formazionesou.local?
+***una volta fatto ciò come riesco a vedere quanto esposto dalla mia applicazione via http://formazionesou.local?***
 
-Per ottenere quanto esposto all'applicazione flask creata in precedenza, chiamando via http://formazionesou.local ho dovuto fare le seguenti operazioni:
+Per ottenere quanto esposto all'applicazione flask creata in precedenza, chiamando via `http://formazionesou.local` ho dovuto fare le seguenti operazioni:
 
 - modificare il file /etc/hosts per creare un dominio DNS locale che associa l'ip al name formasionesou.local.
 
@@ -85,10 +85,10 @@ Per ottenere quanto esposto all'applicazione flask creata in precedenza, chiaman
       192.168.64.2    formazionesou.local
 in questo modo l'applicazione può essere chiamata anche digitando sul browser http://formazionesou.local
 
-!!importante ricordarsi di:
+***!!importante ricordarsi di***:
 
-- assegnare al servizio il tipo NodePort e non clusterIP poichè quest'ultimo limita tutto internamente al cluster
-- e settare un ingress.
+- *assegnare al servizio il tipo NodePort e non clusterIP poichè quest'ultimo limita tutto internamente al cluster*
+- *settare un ingress*.
 
 dopo aver fatto ciò lanciare su cluster il seguente comando:
 
