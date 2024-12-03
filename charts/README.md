@@ -17,10 +17,10 @@ diversi file e cartelle
         service.yaml
         serviceaccount.yaml
 
-# spiegazione values.yaml
+### `spiegazione values.yaml`
 All'interno del values.yaml ho:
 
-1)creato il service account cluster-reader
+1)creato il `service account cluster-reader`
 
     serviceAccount:
       create: true
