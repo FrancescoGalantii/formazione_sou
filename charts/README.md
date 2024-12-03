@@ -2,7 +2,7 @@
 creare un helm chart che effettui il deploy dell'immagine flask-app-example creata tramite pipeline jenkins, per poi effettuare il deploy dell'applicazione flask tramite pipeline presente all'interno della repo https://github.com/FrancescoGalantii/formazione_sou_k8s.git
 l'helm install sull'istanza k8s locale su specifico namespace.
 
-# spiegazione helm chart
+### *`spiegazione helm chart`*
 prima di tutto ho creato la subdir lanciando all'interno di formazione_sou helm create charts, in questo modo helm crea in automatico
 diversi file e cartelle
 
@@ -17,7 +17,7 @@ diversi file e cartelle
         service.yaml
         serviceaccount.yaml
 
-### `spiegazione values.yaml`
+### *`spiegazione values.yaml`*
 All'interno del values.yaml ho:
 
 1)`creato il service account cluster-reader`
