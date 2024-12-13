@@ -47,15 +47,15 @@ All'interno del vagrantfile andare a definire la macchina virtuale rocky linux a
    
       - definire la rete assegnadnogli un nome e associando un ipv4 al master.
    
-5. ho pullare l'image per il jenkins slave e creato un volume anche per esso.
+5. pullare l'image per il jenkins slave e creato un volume anche per esso.
 
 6. connettere l'agent con il master utilizzando le seguenti variabili d'ambiente:
 
-      - `JENKINS_URL` --> dove va riportato l'url del master
+      - `JENKINS_URL` --> *dove va riportato l'url del master*
    
-      - `JENKINS_AGENT_NAME` --> riportando il nome dell'agent
+      - `JENKINS_AGENT_NAME` --> *riportando il nome dell'agent*
    
-      - `JENKINS_SECRET` --> dove invece va settato la chiave segreta generata da jenkins stesso al momento della  creazione del nodo e che mi consente di far comunicare il master con l'agent
+      - `JENKINS_SECRET` --> *dove invece va settato la chiave segreta generata da jenkins stesso al momento della  creazione del nodo e che mi consente di far comunicare il master con l'agent*
 7. testare il funzionamento lanciando all'interno della vm il comando
 
        docker exec -it jenkinslave /bin/bash
