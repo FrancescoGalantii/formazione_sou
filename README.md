@@ -33,6 +33,31 @@ Alcuni esempi di esercizi e progetti realizzati includono:
    - I container vengono migrati automaticamente ogni 60 secondi tramite script Bash.
 
 ---
+## Struttura della repository
+```
+formazione_sou
+├── README.md
+├── charts
+│   ├── Chart.yaml
+│   ├── README.md
+│   ├── templates
+│   │   ├── deployment.yaml
+│   │   ├── ingress.yaml
+│   │   ├── service.yaml
+│   │   └── serviceaccount.yaml
+│   └── values.yaml
+├── ping_pong
+│   ├── README.md
+│   ├── Vagrantfile
+│   ├── script_nodo1.sh
+│   └── script_nodo2.sh
+└── vagrant_ansible_jenkins_st1tr2
+    ├── README.md
+    ├── Vagrantfile
+    └── playbook.yml
+5 directories, 15 files
+```
+---
 ## Requisiti
 
 Per replicare gli ambienti e gli esercizi presenti in questa repository, assicurati di avere installato:
