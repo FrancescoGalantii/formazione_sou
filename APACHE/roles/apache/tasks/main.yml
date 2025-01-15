@@ -59,8 +59,4 @@
     src: default-ssl.conf.j2
     dest: /etc/apache2/sites-available/default-ssl.conf
 
-- name: Enable SSL site
-  shell: |
-    a2ensite default-ssl
-    systemctl reload apache2
 
