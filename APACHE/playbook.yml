@@ -1,0 +1,7 @@
+---
+- name: Provision Apache Webserver
+  hosts: all
+  become: true
+  roles:
+    - apache
+

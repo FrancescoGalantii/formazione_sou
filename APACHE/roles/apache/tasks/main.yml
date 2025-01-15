@@ -1,0 +1,58 @@
+---
+- name: Install Apache and OpenSSL
+  apt:
+    name:
+      - apache2
+      - openssl
+    state: present
+    update_cache: true
+
+- name: Enable necessary Apache modules
+  shell: |
+    a2enmod ssl
+    a2enmod headers
+    systemctl restart apache2
+
+- name: Copy "Hello World" index.html
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: '0644'
+
+- name: Create SSL directory
+  file:
+    path: /etc/apache2/ssl
+    state: directory
+    mode: '0700'
+
+- name: Generate CA key and certificate
+  command: >
+    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/ca.key -out /etc/apache2/ssl/ca.crt
+    -days 365 -subj "/CN=MySelfSignedCA"
+
+- name: Generate server private key
+  command: >
+    openssl genrsa -out /etc/apache2/ssl/server.key 2048
+
+- name: Generate server CSR
+  command: >
+    openssl req -new -key /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.csr
+    -subj "/CN=localhost"
+
+- name: Sign server certificate with CA
+  command: >
+    openssl x509 -req -in /etc/apache2/ssl/server.csr -CA /etc/apache2/ssl/ca.crt -CAkey /etc/apache2/ssl/ca.key
+    -CAcreateserial -out /etc/apache2/ssl/server.crt -days 365
+
+- name: Deploy Apache SSL configuration
+  template:
+    src: default-ssl.conf.j2
+    dest: /etc/apache2/sites-available/default-ssl.conf
+
+- name: Enable SSL site
+  shell: |
+    a2ensite default-ssl
+    systemctl reload apache2
+
