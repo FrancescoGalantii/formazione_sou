@@ -39,10 +39,9 @@ apache
 ## Requisiti
 Per poter replicare l'ambiente presente in questa repository, assicurarsi di avere installato:
 
-• [Vagrant](https://www.vagrantup.com/)
-• [VirtualBox](https://www.virtualbox.org/)
-• [Docker](https://www.docker.com/) o [Podman](https://podman.io/)
-• [Ansible](https://www.ansible.com/)
+- [Vagrant](https://www.vagrantup.com/)
+- [VirtualBox](https://www.virtualbox.org/)
+- [Ansible](https://www.ansible.com/)
 
 
 
