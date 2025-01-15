@@ -5,7 +5,7 @@ Questa repository contiene il materiale sviluppato durante il percorso di formaz
 ---
 ## Introduzione
 
-Benvenuti nella repository `formazione_sou`, creata come parte del percorso formativo nella DevOps Academy. Questo spazio raccoglie il lavoro svolto e i materiali prodotti durante il percorso, con l'obiettivo di approfondire le tecnologie e le competenze essenziali per un ruolo DevOps attraverso esercizi pratici e progetti strutturati.
+La repository `formazione_sou`, creata come parte del percorso formativo nella DevOps Academy, raccoglie il lavoro svolto e i materiali prodotti durante il percorso, con l'obiettivo di approfondire le tecnologie e le competenze essenziali per un ruolo DevOps attraverso esercizi pratici e progetti strutturati.
 
 ---
 ## Contenuto della Repository
@@ -60,7 +60,7 @@ formazione_sou
 ---
 ## Requisiti
 
-Per replicare gli ambienti e gli esercizi presenti in questa repository, assicurati di avere installato:
+Per replicare gli ambienti e gli esercizi presenti in questa repository, assicurarsi di avere installato:
 
 - [Vagrant](https://www.vagrantup.com/)
 - [VirtualBox](https://www.virtualbox.org/)
