@@ -25,7 +25,6 @@ roles:
   - apache
 ```
 ## Spiegazione ruolo e subdirectory
-• Struttura
 ```
 apache
 ├── files
