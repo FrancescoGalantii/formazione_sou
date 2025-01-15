@@ -36,6 +36,17 @@ Alcuni esempi di esercizi e progetti realizzati includono:
 ## Struttura della repository
 ```
 formazione_sou
+├── APACHE
+│   ├── Vagrantfile
+│   ├── playbook.yml
+│   └── roles
+│       └── apache
+│           ├── files
+│           │   └── index.html
+│           ├── tasks
+│           │   └── main.yml
+│           └── templates
+│               └── default-ssl.conf.j2
 ├── README.md
 ├── charts
 │   ├── Chart.yaml
@@ -55,7 +66,8 @@ formazione_sou
     ├── README.md
     ├── Vagrantfile
     └── playbook.yml
-5 directories, 15 files
+
+11 directories, 20 files
 ```
 ---
 ## Requisiti
