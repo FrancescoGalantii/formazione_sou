@@ -29,22 +29,30 @@
 
 - name: Generate CA key and certificate
   command: >
-    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/ca.key -out /etc/apache2/ssl/ca.crt
+    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
     -days 365 -subj "/CN=MySelfSignedCA"
 
-- name: Generate server private key
-  command: >
-    openssl genrsa -out /etc/apache2/ssl/server.key 2048
+- name: Generate a private key for server
+  openssl_privatekey:
+    path: /etc/apache2/ssl/server.key
+    cipher: auto
+    size: 2048
 
-- name: Generate server CSR
-  command: >
-    openssl req -new -key /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.csr
-    -subj "/CN=localhost"
+- name: Generate a CSR for server
+  openssl_csr:
+    path: /etc/apache2/ssl/server.csr
+    privatekey_path: /etc/apache2/ssl/server.key
+    common_name: "apache.local"
+    country_name: "IT"
+    organization_name: "Sourcesense"
+    state_or_province_name: "Lazio"
 
-- name: Sign server certificate with CA
-  command: >
-    openssl x509 -req -in /etc/apache2/ssl/server.csr -CA /etc/apache2/ssl/ca.crt -CAkey /etc/apache2/ssl/ca.key
-    -CAcreateserial -out /etc/apache2/ssl/server.crt -days 365
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: /etc/apache2/ssl/server.crt
+    privatekey_path: /etc/apache2/ssl/server.key
+    csr_path: /etc/apache2/ssl/server.csr
+    provider: selfsigned
 
 - name: Deploy Apache SSL configuration
   template:
