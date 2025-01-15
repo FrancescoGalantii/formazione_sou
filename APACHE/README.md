@@ -35,6 +35,14 @@ apache
     └── default-ssl.conf.j2 --> il file di configurazione
 ```
 ---
+## passaggi aggiuntivi
+**modificare il file /etc/hosts creando un dns locale** 
+```
+192.168.x.x   apache.local
+```
+aggiungendo questo al file /etc/hosts basterà scrivere sul browser https://apache.local 
+
+---
 ## Requisiti
 Per poter replicare l'ambiente presente in questa repository, assicurarsi di avere installato:
 
