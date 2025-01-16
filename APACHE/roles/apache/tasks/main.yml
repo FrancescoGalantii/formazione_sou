@@ -29,13 +29,13 @@
 
 - name: Generate CA key and certificate
   command: >
-    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
+    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/ca.key -out /etc/apache2/ssl/ca.crt
     -days 365 -subj "/CN=MySelfSignedCA"
 
 - name: Generate a CSR for server
   openssl_csr:
     path: /etc/apache2/ssl/server.csr
-    privatekey_path: /etc/apache2/ssl/server.key
+    privatekey_path: /etc/apache2/ssl/ca.key
     common_name: "apache.local"
     country_name: "IT"
     organization_name: "Sourcesense"
@@ -43,8 +43,8 @@
 
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
-    path: /etc/apache2/ssl/server.crt
-    privatekey_path: /etc/apache2/ssl/server.key
+    path: /etc/apache2/ssl/ca.crt
+    privatekey_path: /etc/apache2/ssl/ca.key
     csr_path: /etc/apache2/ssl/server.csr
     provider: selfsigned
 
