@@ -32,12 +32,6 @@
     openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
     -days 365 -subj "/CN=MySelfSignedCA"
 
-- name: Generate a private key for server
-  openssl_privatekey:
-    path: /etc/apache2/ssl/server.key
-    cipher: auto
-    size: 2048
-
 - name: Generate a CSR for server
   openssl_csr:
     path: /etc/apache2/ssl/server.csr
