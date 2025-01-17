@@ -7,12 +7,17 @@
 - name: Enable required Apache modules
   command: a2enmod ssl
 
+- name: Copy index.html
+  copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
+
 - name: Create SSL directory
   file:
     path: /etc/apache2/ssl
     state: directory
 
-- name: Generate the private key
+- name: Generate the private key for server
   openssl_privatekey:
     path: /etc/apache2/ssl/server.key
     type: RSA
@@ -43,12 +48,7 @@
 - name: Enable SSL site configuration
   command: a2ensite 000-default-ssl
     
-- name: Copy index.html
-  copy:
-    src: files/index.html
-    dest: /var/www/html/index.html
-
-- name: Restart Apache
+- name: Restart Apache service
   service:
     name: apache2
     state: restarted
