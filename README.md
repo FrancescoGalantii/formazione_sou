@@ -37,16 +37,16 @@ Alcuni esempi di esercizi e progetti realizzati includono:
 ```
 formazione_sou
 ├── APACHE
+│   ├── README.md
 │   ├── Vagrantfile
 │   ├── playbook.yml
 │   └── roles
 │       └── apache
 │           ├── files
+│           │   ├── 000-default-ssl.conf
 │           │   └── index.html
-│           ├── tasks
-│           │   └── main.yml
-│           └── templates
-│               └── default-ssl.conf.j2
+│           └── tasks
+│               └── main.yml
 ├── README.md
 ├── charts
 │   ├── Chart.yaml
@@ -67,7 +67,7 @@ formazione_sou
     ├── Vagrantfile
     └── playbook.yml
 
-11 directories, 20 files
+18 directories, 28 files
 ```
 ---
 ## Requisiti
