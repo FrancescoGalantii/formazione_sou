@@ -1,61 +1,54 @@
 ---
-- name: Install Apache and OpenSSL
-  apt:
-    name:
-      - apache2
-      - openssl
+- name: Install Apache
+  package:
+    name: apache2
     state: present
-    update_cache: true
 
-- name: Enable necessary Apache modules
-  shell: |
-    a2enmod ssl
-    a2enmod headers
-    systemctl restart apache2
-
-- name: Copy "Hello World" index.html
-  copy:
-    src: index.html
-    dest: /var/www/html/index.html
-    owner: www-data
-    group: www-data
-    mode: '0644'
+- name: Enable required Apache modules
+  command: a2enmod ssl
 
 - name: Create SSL directory
   file:
     path: /etc/apache2/ssl
     state: directory
-    mode: '0700'
 
-- name: Generate CA key and certificate
-  command: >
-    openssl req -x509 -new -nodes -keyout /etc/apache2/ssl/ca.key -out /etc/apache2/ssl/ca.crt
-    -days 365 -subj "/CN=MySelfSignedCA"
+- name: Generate the private key
+  openssl_privatekey:
+    path: /etc/apache2/ssl/server.key
+    type: RSA
+    size: 2048
 
 - name: Generate a CSR for server
   openssl_csr:
     path: /etc/apache2/ssl/server.csr
-    privatekey_path: /etc/apache2/ssl/ca.key
+    privatekey_path: /etc/apache2/ssl/server.key
     common_name: "apache.local"
     country_name: "IT"
-    organization_name: "Sourcesense"
-    state_or_province_name: "Lazio"
+    state_or_province_name: "Italy"
+    locality_name: "Rome"
+    organization_name: "sourcesense"
 
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
-    path: /etc/apache2/ssl/ca.crt
-    privatekey_path: /etc/apache2/ssl/ca.key
+    path: /etc/apache2/ssl/server.crt
+    privatekey_path: /etc/apache2/ssl/server.key
     csr_path: /etc/apache2/ssl/server.csr
     provider: selfsigned
 
 - name: Deploy Apache SSL configuration
-  template:
-    src: default-ssl.conf.j2
-    dest: /etc/apache2/sites-available/default-ssl.conf
+  copy:
+    src: files/000-default-ssl.conf
+    dest: /etc/apache2/sites-available/000-default-ssl.conf
 
-- name: Enable SSL site
-  shell: |
-    a2ensite default-ssl
-    systemctl reload apache2
+- name: Enable SSL site configuration
+  command: a2ensite 000-default-ssl
+    
+- name: Copy index.html
+  copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
 
-
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted
