@@ -28,11 +28,10 @@ roles:
 ```
 apache
 ├── files
-│   └── index.html --> contenente il file html per esporre la scritta hello world 
-├── tasks
-│   └── main.yml --> il file yaml contenenente le task necessarie alla finalizzazione dell'esercizio
-└── templates
-    └── default-ssl.conf.j2 --> il file di configurazione
+│   ├── 000-default-ssl.conf --> il file di configurazione per apache 
+│   └── index.html --> il file html che espone la scritta hello world
+└── tasks
+    └── main.yml --> il file yaml con le task necessarie alla finalizzazione dell'esercizio 
 ```
 ---
 ## passaggi aggiuntivi
