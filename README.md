@@ -48,6 +48,8 @@ formazione_sou
 │           └── tasks
 │               └── main.yml
 ├── README.md
+├── REDIS
+│   └── redis_n-primi.py
 ├── charts
 │   ├── Chart.yaml
 │   ├── README.md
@@ -67,7 +69,7 @@ formazione_sou
     ├── Vagrantfile
     └── playbook.yml
 
-18 directories, 28 files
+11 directories, 22 files
 ```
 ---
 ## Requisiti
