@@ -52,4 +52,5 @@ if __name__ == "__main__":
 ---
 ## requisiti
 - [python](https://www.python.org)
+- [minikube](https://minikube.sigs.k8s.io/docs/) o [k3s](https://k3s.io)
 
