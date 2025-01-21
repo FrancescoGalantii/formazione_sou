@@ -80,6 +80,8 @@ Per replicare gli ambienti e gli esercizi presenti in questa repository, assicur
 - [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) o [Podman](https://podman.io/)
 - [Ansible](https://www.ansible.com/)
+- [minikube](https://minikube.sigs.k8s.io/docs/)
+- [python](https://www.python.org)
 
 
 
