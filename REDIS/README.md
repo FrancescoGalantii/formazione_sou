@@ -10,7 +10,7 @@ Scrivere uno script in Python che faccia il SET di 1000 chiavi che rappresentano
 2. Verificare se il numero è primo
 ```python
 def is_prime(num):
-    if num < 2: --> se il numero è minore di 2 
+    if num < 2: --> `se il numero è minore di 2` 
         return False --> restituisce false
     for i in range(2, int(math.sqrt(num)) + 1): --> iteration su tutti i numeri interi da 2 fino alla radice quadrata di num
         if num % i == 0: --> operatore % calcola la divisione tra num e l'indice se il resto non da zero la condizione  altrimenti ritorna true 
