@@ -1,5 +1,5 @@
 # `obiettivo`
-Installare un redis master/slave tramite [helm chart di Bitnami in ](https://github.com/bitnami/charts/tree/main/bitnami/redis) Kubernetes. 
+Installare un redis master/slave tramite [helm chart di Bitnami](https://github.com/bitnami/charts/tree/main/bitnami/redis) Kubernetes. 
 Scrivere uno script in Python che faccia il SET di 1000 chiavi che rappresentano la posizione dei  numeri primi (1 => 2, 2 => 3, 3 => 5, 4 => 7, ...) e poi il GET delle chiavi.
 
 ---
