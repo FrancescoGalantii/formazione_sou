@@ -28,6 +28,10 @@ sudo dnf install epel-release
 ```bash
 sudo dnf -y install openldap openldap-servers openldap-clients
 ```
+5. Jenkins
+```bash
+dnf install -y jenkins
+```
 ---
 ## Passaggi successivi
 1. Creare un utente tomcat
@@ -99,7 +103,7 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/openldap.ldif
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/dyngroup.ldif
    ```
-   5.5 Creare il seguente file : manager.ldif e copiare al suo interno
+   5.5 Creare il seguente file : manager.ldif e copiare al suo interno e applicare il file
    ```
    dn: olcDatabase={2}mdb,cn=config
    changetype: modify
@@ -109,13 +113,59 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    dn: olcDatabase={2}mdb,cn=config
    changetype: modify
    replace: olcRootDN
-   olcRootDN: cn=Manager,dc=rpa,dc=ibm,dc=com
+   olcRootDN: cn=Manager,dc=source,dc=com
 
    dn: olcDatabase={2}mdb,cn=config
    changetype: modify
    add: olcRootPW
    olcRootPW: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
+   ```
+   ldapmodify -Y EXTERNAL -H ldapi:/// -f manager.ldif
+   ```
+6. Creare Utente Senza utenza root
+   6.1 creare nuova pass utente
+   ```
+   slappasswd
+   ```
+   6.2 Creare file ldif per utente
+   ```
+   vi newuser.ldif
+   ```
+   6.3 copiare al suo interno
+   ```
+   dn: cn=User Name,dc=source,dc=com
+   changetype: add
+   objectClass: inetOrgPerson
+   objectClass: organizationalPerson
+   objectClass: person
+   objectClass: top
+   uid: username
+   cn: User Name
+   sn: Name
+   displayName: User Name
+   mail: username@source.com
+   userPassword: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   ```
+   6.4 applicare il file
+   ```
+   ldapadd -D "cn=Manager,dc=source,dc=com" -W -f newuser.ldif
+   ```
+   6.5 accedere alla dashboard di jenkins
+   - **gestisci jenkins**
+   - **security**
+   - **selezionare LDAP**
+   - **inserire il dn creato nei file**
+   - **riavviare jenkins e provando ad accedere con le credenziali ldap create** 
+
+
+
+
+
+     
+
+
+   
 
 
 
