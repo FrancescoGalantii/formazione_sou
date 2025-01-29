@@ -34,12 +34,12 @@ dnf install -y jenkins
 ```
 ---
 ## Passaggi successivi
-1. Creare un utente tomcat
+1. **Creare un utente tomcat**
 ```bash
 sudo groupadd tomcat
 sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 ```
-2. Configurare systemd service
+2. **Configurare systemd service**
 ```bash
 sudo nano /etc/systemd/system/tomcat.service
 ```
@@ -68,34 +68,34 @@ sudo nano /etc/systemd/system/tomcat.service
     [Install]
     WantedBy=multi-user.target
 ```
-3. Abilitare e avviare il servizio Tomcat
+3. **Abilitare e avviare il servizio Tomcat**
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable tomcat
 sudo systemctl start tomcat
 ```
-4. Impostare Apache come reverse proxy
+4. **Impostare Apache come reverse proxy**
 ```
 ProxyPass /hello http://192.168.10.11:8080/hello
 ProxyPassReverse /hello http://192.168.10.11:8080/hello
 ```
-5. Creare utenza root per ldap
-   5.1 impostare pass per utenza root
+5. **Creare utenza root per ldap**
+   5.1 *impostare pass per utenza root*
    ```
    slappasswd
    ```
-   5.2 creare file rootpw.ldif e copiare al suo interno cambiando con la password creata
+   5.2 *creare file rootpw.ldif e copiare al suo interno cambiando con la password creata*
    ```
    dn: olcDatabase={0}config,cn=config
    changetype: modify
    add: olcRootPW
    olcRootPW: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
-   5.3 Applicare il file
+   5.3 *Applicare il file*
    ```
    ldapadd -Y EXTERNAL -H ldapi:/// -f rootpw.ldif
    ```
-   5.4 importare lo schema base ldap
+   5.4 *importare lo schema base ldap*
    ```
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
@@ -103,7 +103,7 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/openldap.ldif
    ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/dyngroup.ldif
    ```
-   5.5 Creare il seguente file : manager.ldif e copiare al suo interno e applicare il file
+   5.5 *Creare il seguente file : manager.ldif e copiare al suo interno e applicare il file*
    ```
    dn: olcDatabase={2}mdb,cn=config
    changetype: modify
@@ -123,16 +123,16 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    ```
    ldapmodify -Y EXTERNAL -H ldapi:/// -f manager.ldif
    ```
-6. Creare Utente Senza utenza root
-   6.1 creare nuova pass utente
+6. **Creare Utente Senza utenza root**
+   6.1 *creare nuova pass utente*
    ```
    slappasswd
    ```
-   6.2 Creare file ldif per utente
+   6.2 *Creare file ldif per utente*
    ```
    vi newuser.ldif
    ```
-   6.3 copiare al suo interno
+   6.3 *copiare al suo interno*
    ```
    dn: cn=User Name,dc=source,dc=com
    changetype: add
@@ -147,11 +147,11 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    mail: username@source.com
    userPassword: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
-   6.4 applicare il file
+   6.4 *applicare il file*
    ```
    ldapadd -D "cn=Manager,dc=source,dc=com" -W -f newuser.ldif
    ```
-   6.5 accedere alla dashboard di jenkins
+   6.5 *accedere alla dashboard di jenkins*
    - **gestisci jenkins**
    - **security**
    - **selezionare LDAP**
