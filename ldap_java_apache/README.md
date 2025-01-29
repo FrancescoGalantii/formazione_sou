@@ -3,27 +3,44 @@
 - **impostare un Apache reverse Proxy davanti tomcat**
 - **installare Ldap e creare delle utenze**
 - **installare un applicativo open source che supporti ldap e raggiungere l'applicazione autenticandosi con le utenze create**
+
+---
 ## installazioni
-1. installazione openjdk
+1. Openjdk
 ```bash
 dnf install java-11-openjdk-devel
 ```
-2. installazione Apache tomcat
+2. Apache tomcat
 ```bash
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.62/bin/apache-tomcat-9.0.62.
 ```
 ```bash
 sudo tar xvf apache-tomcat-*.tar.gz -C /opt/tomcat --strip-components=1
 ```
-3. Creazione di un utente tomcat
-```shell
+3. Maven
+```bash
+dnf install -y maven
+```
+4. Openldap
+```bash
+sudo dnf install epel-release
+```
+```bash
+sudo dnf -y install openldap openldap-servers openldap-clients
+```
+---
+## Passaggi successivi
+1. Creare un utente tomcat
+```bash
 sudo groupadd tomcat
 sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 ```
-4. Configurazione systemd service
-```
+2. Configurare systemd service
+```bash
 sudo nano /etc/systemd/system/tomcat.service
---> e copiare al suo interno
+```
+-->  **`copiare al suo interno`**
+```
     [Unit]
     Description=Tomcat 9 servlet container
     After=network.target
@@ -47,12 +64,74 @@ sudo nano /etc/systemd/system/tomcat.service
     [Install]
     WantedBy=multi-user.target
 ```
-5. Abilitare e avviare il servizio Tomcat
+3. Abilitare e avviare il servizio Tomcat
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable tomcat
 sudo systemctl start tomcat
 ```
+4. Impostare Apache come reverse proxy
+```
+ProxyPass /hello http://192.168.10.11:8080/hello
+ProxyPassReverse /hello http://192.168.10.11:8080/hello
+```
+5. Creare utenza root per ldap
+   5.1 impostare pass per utenza root
+   ```
+   slappasswd
+   ```
+   5.2 creare file rootpw.ldif e copiare al suo interno cambiando con la password creata
+   ```
+   dn: olcDatabase={0}config,cn=config
+   changetype: modify
+   add: olcRootPW
+   olcRootPW: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   ```
+   5.3 Applicare il file
+   ```
+   ldapadd -Y EXTERNAL -H ldapi:/// -f rootpw.ldif
+   ```
+   5.4 importare lo schema base ldap
+   ```
+   ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+   ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+   ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+   ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/openldap.ldif
+   ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/dyngroup.ldif
+   ```
+   5.5 Creare il seguente file : manager.ldif e copiare al suo interno
+   ```
+   dn: olcDatabase={2}mdb,cn=config
+   changetype: modify
+   replace: olcSuffix
+   olcSuffix: dc=rpa,dc=ibm,dc=com
+
+   dn: olcDatabase={2}mdb,cn=config
+   changetype: modify
+   replace: olcRootDN
+   olcRootDN: cn=Manager,dc=rpa,dc=ibm,dc=com
+
+   dn: olcDatabase={2}mdb,cn=config
+   changetype: modify
+   add: olcRootPW
+   olcRootPW: {SSHA}xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
