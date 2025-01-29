@@ -6,29 +6,29 @@
 
 ---
 ## installazioni
-1. Openjdk
+1. **Openjdk**
 ```bash
 dnf install java-11-openjdk-devel
 ```
-2. Apache tomcat
+2. **Apache tomcat**
 ```bash
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.62/bin/apache-tomcat-9.0.62.
 ```
 ```bash
 sudo tar xvf apache-tomcat-*.tar.gz -C /opt/tomcat --strip-components=1
 ```
-3. Maven
+3. **Maven**
 ```bash
 dnf install -y maven
 ```
-4. Openldap
+4. **Openldap**
 ```bash
 sudo dnf install epel-release
 ```
 ```bash
 sudo dnf -y install openldap openldap-servers openldap-clients
 ```
-5. Jenkins
+5. **Jenkins**
 ```bash
 dnf install -y jenkins
 ```
