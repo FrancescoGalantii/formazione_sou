@@ -154,7 +154,7 @@ ProxyPassReverse /hello http://192.168.10.11:8080/hello
    6.5 *accedere alla dashboard di jenkins*
    - **gestisci jenkins**
    - **security**
-   - **selezionare LDAP**
+   - **nella sezione area di sicurezza selezionare LDAP**
    - **inserire il dn creato nei file**
    - **riavviare jenkins e provando ad accedere con le credenziali ldap create** 
 
