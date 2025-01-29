@@ -49,6 +49,7 @@ formazione_sou
 │               └── main.yml
 ├── README.md
 ├── REDIS
+│   ├── README.md
 │   └── redis_n-primi.py
 ├── charts
 │   ├── Chart.yaml
@@ -59,6 +60,22 @@ formazione_sou
 │   │   ├── service.yaml
 │   │   └── serviceaccount.yaml
 │   └── values.yaml
+├── ldap_java_apache
+│   ├── README.md
+│   ├── Vagrantfile
+│   └── my-webapp
+│       ├── pom.xml
+│       └── src
+│           └── main
+│               ├── java
+│               │   └── com
+│               │       └── mycompany
+│               │           └── hello
+│               │               └── HelloServlet.java
+│               └── webapp
+│                   ├── WEB-INF
+│                   │   └── web.xml
+│                   └── index.jsp
 ├── ping_pong
 │   ├── README.md
 │   ├── Vagrantfile
@@ -69,7 +86,7 @@ formazione_sou
     ├── Vagrantfile
     └── playbook.yml
 
-11 directories, 22 files
+21 directories, 29 files
 ```
 ---
 ## Requisiti
